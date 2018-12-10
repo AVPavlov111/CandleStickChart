@@ -141,6 +141,17 @@ public class TopologyTests {
         Assert.assertNotEquals(candleStick1.getId(), candleStick2.getId());
     }
 
+    @Test
+    public void shouldAggregateToDifferentCandlesIfSecondTransactionHasLessTimestamp()  {
+        sendTransaction(new StockTransaction(1.0, 1, settingsService.aggregationPeriodInMinutes() * 60 * 1000 - 1));
+        sendTransaction(new StockTransaction(1.0, 1, 1));
+
+        CandleStick firstCandleStick =  readOutput();
+        CandleStick lastCandleStick =  readOutput();
+
+        Assert.assertEquals(firstCandleStick.getId(), lastCandleStick.getId());
+    }
+
     private CandleStick readOutput() {
         return testDriver
                 .readOutput(settingsService.getOutputTopic(), new StringDeserializer(),

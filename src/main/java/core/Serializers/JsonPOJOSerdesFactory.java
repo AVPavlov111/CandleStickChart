@@ -1,7 +1,5 @@
-package core;
+package core.Serializers;
 
-import core.Serializers.JsonPOJODeserializer;
-import core.Serializers.JsonPOJOSerializer;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
